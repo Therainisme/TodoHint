@@ -1,0 +1,39 @@
+name: 'Class reminder'
+
+on:
+  schedule:
+    - cron: '00 0 * * *'  #  8:00
+    - cron: '00 2 * * *'  # 10:00
+    - cron: '00 6 * * *'  # 14:00
+    - cron: '00 8 * * *'  # 16:00
+    - cron: '30 10 * * *' # 18:00
+  push:
+      branches:
+        - main
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Test
+        run: npm run cr
+
+      - name: Test echo
+        run: echo $TEST_SECRET
+      
+        env:
+          TEST_SECRET: ${{ secrets.TS }}

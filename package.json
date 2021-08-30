@@ -4,13 +4,19 @@
     "description": "",
     "main": "index.ts",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "cr": "ts-node ./test.ts"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
         "@types/node-fetch": "^2.5.12",
         "node-fetch": "^2.6.1",
-        "typescript": "^4.4.2"
+        "ts-node": "^10.2.1",
+        "typescript": "^4.4.2",
+        "yargs": "^17.1.1"
+    },
+    "devDependencies": {
+        "@types/yargs": "^17.0.2"
     }
 }
