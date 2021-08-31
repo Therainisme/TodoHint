@@ -31,9 +31,10 @@ jobs:
 
       - name: Test
         run: npm run cr -- --secret=$TEST_SECRET
+        env:
+          TEST_SECRET: ${{ secrets.TS }}
 
       - name: Test echo
         run: echo $TEST_SECRET
-      
         env:
           TEST_SECRET: ${{ secrets.TS }}
