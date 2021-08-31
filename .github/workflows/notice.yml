@@ -30,7 +30,7 @@ jobs:
           npm install
 
       - name: Test
-        run: npm run cr
+        run: npm run cr -- --secret=$TEST_SECRET
 
       - name: Test echo
         run: echo $TEST_SECRET
