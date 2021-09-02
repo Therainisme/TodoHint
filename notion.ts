@@ -71,18 +71,27 @@ export default {
 }
 
 
-interface Course {
+export interface Course {
     id: string;
     name: string;
     type: string;
-    week: string;
+    week: Week;
     teacher: string;
     room: string;
     time: string;
     todoList: Todo[];
 }
 
-interface Todo {
+export interface Todo {
     name: string;
     checked: boolean;
 }
+
+export type Week =
+    "Monday" |
+    "Tuesday" |
+    "Wednesday" |
+    "Thursday" |
+    "Friday" |
+    "Saturday" |
+    "Sunday";

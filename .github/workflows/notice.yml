@@ -1,4 +1,4 @@
-name: 'Class reminder'
+name: 'Course reminder'
 
 on:
   schedule:
@@ -30,11 +30,9 @@ jobs:
           npm install
 
       - name: Test
-        run: npm run cr -- --secret=$TEST_SECRET
+        run: npm run cr -- --mailName=$TEST_SECRET --mailPasswd=$MAIL_PASSWD --databaseId=$DATABASE_ID --notionToken=$NOTION_TOKEN
         env:
-          TEST_SECRET: ${{ secrets.TS }}
-
-      - name: Test echo
-        run: echo $TEST_SECRET
-        env:
-          TEST_SECRET: ${{ secrets.TS }}
+          MAIL_NAME: ${{ secrets.MAIL_NAME }}
+          MAIL_PASSWD: ${{ secrets.MAIL_PASSWD }}
+          DATABASE_ID: ${{ secrets.DATABASE_ID }}
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
