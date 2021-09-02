@@ -20,7 +20,7 @@ const mailConfig = {
 const mailSender = nodemailer.createTransport(mailConfig);
 
 async function remind(course: Course) {
-    const Dt = new Date();
+    const Dt = new Date(new Date().getTime() + 8 * 60 * 60 * 1000);
     if (getDay(course.week) === Dt.getDay()) {
 
         const nowTimePoint = hourToMinute(Dt.getHours() + "");
