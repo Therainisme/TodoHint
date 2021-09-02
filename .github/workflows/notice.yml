@@ -30,7 +30,7 @@ jobs:
           npm install
 
       - name: Test
-        run: npm run cr -- --mailName=$TEST_SECRET --mailPasswd=$MAIL_PASSWD --databaseId=$DATABASE_ID --notionToken=$NOTION_TOKEN
+        run: npm run cr -- --mailName=$MAIL_NAME --mailPasswd=$MAIL_PASSWD --databaseId=$DATABASE_ID --notionToken=$NOTION_TOKEN
         env:
           MAIL_NAME: ${{ secrets.MAIL_NAME }}
           MAIL_PASSWD: ${{ secrets.MAIL_PASSWD }}
