@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 
-export async function queryDatabase(databaseId: string, token: string): Promise<Omit<Course, "todoList">[]> {
+export async function queryDatabase(databaseId: string, token: string): Promise<Omit<Lesson, "todoList">[]> {
     const response = await fetch(
         `https://api.notion.com/v1/databases/${databaseId}/query`,
         {
@@ -12,7 +12,7 @@ export async function queryDatabase(databaseId: string, token: string): Promise<
         }
     );
     const json = await response.json();
-    const res: Omit<Course, "todoList">[] = json["results"].map((x: any) => {
+    const res: Omit<Lesson, "todoList">[] = json["results"].map((x: any) => {
         return {
             id: x.id,
             name: x.properties.Name.title[0].text.content,
@@ -54,7 +54,7 @@ export async function queryTodo(pageId: string, token: string): Promise<Todo[]> 
     return res;
 }
 
-export async function queryAllInfo(databaseId: string, token: string): Promise<Course[]> {
+export async function queryAllInfo(databaseId: string, token: string): Promise<Lesson[]> {
     const courseList = await queryDatabase(databaseId, token);
     return await Promise.all(
         courseList.map(async (x: any) => {
@@ -71,7 +71,7 @@ export default {
 }
 
 
-export interface Course {
+export interface Lesson {
     id: string;
     name: string;
     type: string;

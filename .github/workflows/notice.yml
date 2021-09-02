@@ -1,4 +1,4 @@
-name: 'Course reminder'
+name: 'Lesson Reminder'
 
 on:
   schedule:
@@ -12,7 +12,7 @@ on:
         - main
 
 jobs:
-  test:
+  Reminder:
 
     runs-on: ubuntu-latest
 
@@ -29,7 +29,7 @@ jobs:
         run: |
           npm install
 
-      - name: Test
+      - name: Run
         run: npm run cr -- --mailName=$MAIL_NAME --mailPasswd=$MAIL_PASSWD --databaseId=$DATABASE_ID --notionToken=$NOTION_TOKEN
         env:
           MAIL_NAME: ${{ secrets.MAIL_NAME }}

@@ -1,4 +1,4 @@
-import Notion, { Course } from "./notion";
+import Notion, { Lesson } from "./notion";
 import nodemailer from "nodemailer";
 import { getDay, hourToMinute } from "./utlis";
 import yargs from "yargs";
@@ -19,26 +19,27 @@ const mailConfig = {
 
 const mailSender = nodemailer.createTransport(mailConfig);
 
-async function remind(course: Course) {
+async function remind(lesson: Lesson) {
     const Dt = new Date(new Date().getTime() + 8 * 60 * 60 * 1000);
-    if (getDay(course.week) === Dt.getDay()) {
+    if (getDay(lesson.week) === Dt.getDay()) {
 
         const nowTimePoint = hourToMinute(Dt.getHours() + "");
-        const courseStartTimePoint = hourToMinute(course.time.split("-")[0]);
-        const courseEndTimePoint = hourToMinute(course.time.split("-")[1]);
+        const courseStartTimePoint = hourToMinute(lesson.time.split("-")[0]);
+        const courseEndTimePoint = hourToMinute(lesson.time.split("-")[1]);
         if (courseStartTimePoint < nowTimePoint + 60 + 35 && nowTimePoint + 60 + 35 < courseEndTimePoint) {
+            console.log(`Lesson [${lesson.name}] will begin at [${lesson.time.split("-")[0]}]`)
             await mailSender.sendMail({
-                from: `Course Reminder <${mailName}>`,
+                from: `Lesson Reminder <${mailName}>`,
                 to: "therainisme@qq.com",
-                subject: `${course.name}上课提醒`,
+                subject: `${lesson.name}上课提醒`,
                 text: "This is a text",
                 html: `
-                    <p>时间：${course.time}</p>
-                    <p>教室：${course.room}</p>
-                    ${course.todoList.length > 0 ? `
+                    <p>时间：${lesson.time}</p>
+                    <p>教室：${lesson.room}</p>
+                    ${lesson.todoList.length > 0 ? `
                         <h3>Todo</h3>
                         <ul>
-                        ${course.todoList.map(x => `<li>${x.name}</li>`)}
+                        ${lesson.todoList.map(x => `<li>${x.name}</li>`)}
                         </ul>
                     ` : ''}
                 `,
