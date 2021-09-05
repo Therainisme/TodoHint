@@ -1,4 +1,6 @@
-import { Week } from "./notion";
+import yargs from "yargs";
+import { hideBin } from "yargs/helpers";
+import { Lesson, Week } from "./notion";
 
 export function getDay(week: Week) {
     switch (week) {
@@ -24,4 +26,16 @@ export function hourToMinute(hour: string) {
     let res = Number(str[0]) * 60;
     if (str.length === 2) res += Number(str[1]);
     return res;
+}
+
+export function getProcessArgv(): any {
+    return yargs(hideBin(process.argv)).argv;
+}
+
+export function getOrderedInfo(target: Lesson[]): Lesson[] {
+    return target.sort((x, y) => {
+        return hourToMinute(x.time.split("-")[0]) - hourToMinute(y.time.split("-")[0]);
+    }).sort((x, y) => {
+        return getDay(x.week) - getDay(y.week);
+    })
 }

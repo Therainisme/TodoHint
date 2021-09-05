@@ -5,7 +5,8 @@
     "main": "index.ts",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "cr": "ts-node ./reminder.ts"
+        "cr": "ts-node ./reminder.ts",
+        "th": "ts-node ./todohint.ts"
     },
     "author": "",
     "license": "ISC",

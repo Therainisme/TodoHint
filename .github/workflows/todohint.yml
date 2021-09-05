@@ -1,12 +1,9 @@
-name: 'Lesson Reminder'
+name: 'Todo Hint'
 
 on:
   schedule:
     - cron: '00 0 * * *'  #  8:00
-    - cron: '00 2 * * *'  # 10:00
-    - cron: '00 6 * * *'  # 14:00
-    - cron: '00 8 * * *'  # 16:00
-    - cron: '30 10 * * *' # 18:00
+    - cron: '00 11 * * *' # 19:00
   push:
       branches:
         - main
@@ -30,7 +27,7 @@ jobs:
           npm install
 
       - name: Run
-        run: npm run cr -- --mailName=$MAIL_NAME --mailPasswd=$MAIL_PASSWD --databaseId=$DATABASE_ID --notionToken=$NOTION_TOKEN
+        run: npm run th -- --mailName=$MAIL_NAME --mailPasswd=$MAIL_PASSWD --databaseId=$DATABASE_ID --notionToken=$NOTION_TOKEN
         env:
           MAIL_NAME: ${{ secrets.MAIL_NAME }}
           MAIL_PASSWD: ${{ secrets.MAIL_PASSWD }}
