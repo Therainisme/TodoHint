@@ -1,5 +1,5 @@
 import Notion, { Lesson } from "./notion";
-import { getOrderedInfo, getProcessArgv } from './utlis';
+import { getOrderedInfo, getProcessArgv, getBeijingTime } from './utlis';
 import nodemailer from "nodemailer";
 
 const { mailName, mailPasswd, databaseId, notionToken } = getProcessArgv();
@@ -53,10 +53,13 @@ const mailSender = nodemailer.createTransport(mailConfig);
         html += "太棒了！没有要做的事情！";
     }
 
+    const nowTime = getBeijingTime();
+    const ISOSplit = nowTime.toISOString().split("T");
+
     await mailSender.sendMail({
         from: `TodoHint <${mailName}>`,
         to: "therainisme@qq.com",
-        subject: `TodoHint`,
+        subject: `[${ISOSplit[0]} ${ISOSplit[1].split(".")[0]}] TodoHint`,
         text: "This is a text",
         html: html
     });

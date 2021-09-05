@@ -39,3 +39,7 @@ export function getOrderedInfo(target: Lesson[]): Lesson[] {
         return getDay(x.week) - getDay(y.week);
     })
 }
+
+export function getBeijingTime(){
+    return new Date(new Date().getTime() + 8 * 60 * 60 * 1000);
+}

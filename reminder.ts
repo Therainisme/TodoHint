@@ -1,6 +1,6 @@
 import Notion, { Lesson } from "./notion";
 import nodemailer from "nodemailer";
-import { getDay, hourToMinute } from "./utlis";
+import { getBeijingTime, getDay, getOrderedInfo, hourToMinute } from "./utlis";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
@@ -20,7 +20,7 @@ const mailConfig = {
 const mailSender = nodemailer.createTransport(mailConfig);
 
 async function remind(lesson: Lesson) {
-    const Dt = new Date(new Date().getTime() + 8 * 60 * 60 * 1000);
+    const Dt = getBeijingTime()
     if (getDay(lesson.week) === Dt.getDay()) {
 
         const nowTimePoint = hourToMinute(Dt.getHours() + "");
@@ -52,11 +52,8 @@ async function remind(lesson: Lesson) {
 
 (async function () {
     const res = await Notion.queryAllInfo(databaseId, notionToken);
-    const ordered = res.sort((x, y) => {
-        return hourToMinute(x.time.split("-")[0]) - hourToMinute(y.time.split("-")[0]);
-    }).sort((x, y) => {
-        return getDay(x.week) - getDay(y.week);
-    }).forEach(x => {
+    const ordered = getOrderedInfo(res);
+    ordered.forEach(x => {
         remind(x);
     });
 })();
