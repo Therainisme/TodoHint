@@ -9,7 +9,7 @@ on:
         - main
 
 jobs:
-  Reminder:
+  TodoHint:
 
     runs-on: ubuntu-latest
 
